@@ -8,10 +8,10 @@ export class HttpFile extends ObjectFile<HttpFileContent> {
 
   constructor(file_path: string) {
     super(file_path, new HttpFormatter());
-    const namespace_prefix = Config.getView().get("openshift.namespace_prefix");
-    if (!namespace_prefix) throw new ConfigError("openshift.namespace_prefix");
+    const url_suffix = Config.getView().get("http.url_suffix");
+    if (!url_suffix) throw new ConfigError("http.url_suffix");
     // TODO: I hate the idea of having http files linked to a particular service, find a better way
-    const service = this.getVariables().host?.split(`-${namespace_prefix}`)?.[0];
+    const service = this.getVariables().host?.split(`-${url_suffix}`)?.[0];
     if (!service) throw new InvalidHttpFile(file_path, "Could not find host variable to determine service name");
     this.service = service;
   }

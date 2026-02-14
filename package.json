@@ -13,7 +13,7 @@
     "plugin": "./dist/src/index.js"
   },
   "dependencies": {
-    "maro": "file:./maro-2.0.0.tgz"
+    "zod": "3.25.57"
   },
   "keywords": [],
   "author": "",
