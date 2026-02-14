@@ -1,0 +1,33 @@
+{
+  "name": "maro-plugin-http",
+  "version": "1.0.0",
+  "main": "./dist/lib/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc --project ./tsconfig.json",
+    "start": "node ./dist/src/index.js",
+    "clean": "rm -rf node_modules package-lock.json",
+    "import": "npm run clean; cp ../../maro/maro-2.0.0.tgz ./maro-2.0.0.tgz; npm install"
+  },
+  "maro": {
+    "plugin": "./dist/src/index.js"
+  },
+  "dependencies": {
+    "maro": "file:./maro-2.0.0.tgz"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "@typescript-eslint/eslint-plugin": "8.54.0",
+    "@stylistic/eslint-plugin": "2.6.5",
+    "eslint": "8.57.1",
+    "eslint-plugin-de-morgan": "2.0.0",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-math": "0.13.1",
+    "eslint-plugin-promise": "7.2.1",
+    "eslint-plugin-unused-imports": "4.3.0"
+  }
+}
