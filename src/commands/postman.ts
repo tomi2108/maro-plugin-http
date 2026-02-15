@@ -1,4 +1,4 @@
-import { Command, getPath } from "@maro/maro";
+import { Command, Dir, ValidateConfig } from "@maro/maro";
 
 import { HttpFile } from "../lib/http_file";
 import { Postman } from "../lib/postman";
@@ -7,10 +7,11 @@ import { PostmanFile } from "../lib/postman/types";
 export const PostmanCommand: Command = {
   name: "postman",
   description: "Generate postman from http files",
-  run: async ({ ctx }) => {
+  run: async ({ ctx, config }) => {
     const log = ctx.logger;
-    const rest = getPath("rest");
-    const collections = rest.sub("Collections").readFiles();
+    await new ValidateConfig({ keys: ["http.collection"] }).run();
+    const collection = new Dir(config.get("http.collection"));
+    const collections = collection.readFiles();
     const files = collections.map((n) => new HttpFile(n.path));
     const postman = new Postman();
     postman.addFiles(...files);
@@ -25,7 +26,8 @@ export const PostmanCommand: Command = {
     const name = `Apoderados cert external ${date}.postman_collection`;
     const file_name = `${name}.json`;
     const content = postman.generate(name);
-    const file = new PostmanFile(rest.sub("postman").createFile(file_name).path);
+    const postman_dir = collection.getRelative(config.get("http.postman_dir")) as Dir;
+    const file = new PostmanFile(postman_dir.createFile(file_name).path);
     file.write(content);
     log.success(`${file} generated`);
 

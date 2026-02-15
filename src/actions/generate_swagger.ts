@@ -1,19 +1,21 @@
 import {
+  Action,
   AppRepo,
   ExecutionContext,
   getPaths,
   loading,
-  Repo,
-  RepoAction
+  MrCreateEvent
 } from "@maro/maro";
 
 import { Swagger } from "../lib/swagger";
 import { GetHttpFile } from "../steps/GetHttpFile";
 
-export class GenerateSwagger extends RepoAction {
+export class GenerateSwagger implements Action<MrCreateEvent> {
+  event = MrCreateEvent;
 
   @loading("Generating swagger")
-  async onMrCreate(repo: Repo) {
+  async execute(event: MrCreateEvent) {
+    const repo = event.ctx;
     if (!AppRepo.isAppRepo(repo.dir)) return;
     const paths = getPaths("backend");
     if (paths.every((p) => p.path !== repo.dir.path)) return;
