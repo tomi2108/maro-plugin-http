@@ -1,5 +1,6 @@
 import {
   Action,
+  ActionRegistry,
   AppRepo,
   ExecutionContext,
   getPaths,
@@ -10,8 +11,11 @@ import {
 import { Swagger } from "../lib/swagger";
 import { GetHttpFile } from "../steps/GetHttpFile";
 
-export class GenerateSwagger implements Action<MrCreateEvent> {
-  event = MrCreateEvent;
+export class GenerateSwagger implements Action {
+
+  register(): void {
+    ActionRegistry.on(MrCreateEvent, (event) => this.execute(event));
+  }
 
   @loading("Generating swagger")
   async execute(event: MrCreateEvent) {

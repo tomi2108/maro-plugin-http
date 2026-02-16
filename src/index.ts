@@ -1,4 +1,4 @@
-import { ActionRegistry, Config, ConfigRegistry, PluginExport } from "@maro/maro";
+import { Config, ConfigRegistry, PluginExport } from "@maro/maro";
 
 import { GenerateSwagger } from "./actions/generate_swagger";
 import { PostmanCommand } from "./commands/postman";
@@ -12,10 +12,7 @@ const Plugin: PluginExport = {
       new HttpConfig()
     );
 
-    ActionRegistry.register(
-      Config.getView().get("http.generate_swagger")
-      && new GenerateSwagger()
-    );
+    if (Config.getView().get("http.generate_swagger")) new GenerateSwagger().register();
   },
   commands: [
     {

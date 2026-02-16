@@ -19,10 +19,10 @@ export class HttpConfig implements ConfigSection {
 
   help(): ConfigHelp[] {
     return [
-      { key: "url_suffix", description: "Suffix used to extract service name from host variable" },
-      { key: "collection", description: "Directory containing HTTP collection files" },
-      { key: "postman_dir", description: "Directory to save postman files relative to 'collection'" },
-      { key: "generate_swagger", description: "Generate swagger on every AppRepo mr" }
+      { key: "url_suffix", description: "Suffix used to extract service name from host variable", type: "string" },
+      { key: "collection", description: "Directory containing HTTP collection files", type: "string" },
+      { key: "postman_dir", description: "Directory to save postman files relative to 'collection'", type: "string" },
+      { key: "generate_swagger", description: "Generate swagger on every AppRepo mr", type: "boolean" }
     ];
   }
 
