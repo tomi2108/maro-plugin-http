@@ -10,8 +10,7 @@
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
     "start": "node ./dist/src/index.js",
-    "clean": "rm -rf node_modules package-lock.json",
-    "import": "npm run clean; cp ../../maro/maro-2.0.0.tgz ./maro-2.0.0.tgz; npm install"
+    "clean": "rm -rf node_modules package-lock.json"
   },
   "maro": {
     "plugin": "./dist/src/index.js"
