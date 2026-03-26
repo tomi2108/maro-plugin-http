@@ -1,4 +1,4 @@
-import { Command, Dir, getPath, ValidateConfig } from "@maro/maro";
+import { Command, Dir, ValidateConfig } from "@maro/maro";
 
 import { HttpFile } from "../lib/http_file";
 import { Postman } from "../lib/postman";
@@ -9,10 +9,8 @@ export const PostmanCommand: Command = {
   description: "Generate postman from http files",
   run: async ({ ctx, config }) => {
     const log = ctx.logger;
-
-    await new ValidateConfig({ keys: ["paths.http_collection"] }).run();
-    const collection = getPath("http_collection")
-
+    await new ValidateConfig({ keys: ["http.collection"] }).run();
+    const collection = new Dir(config.get("http.collection"));
     const collections = collection.readFiles();
     const files = collections.map((n) => new HttpFile(n.path));
     const postman = new Postman();
